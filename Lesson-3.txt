@@ -1,0 +1,46 @@
+DROP TABLE IF EXISTS `photo_directory`;
+CREATE TABLE `video_directory` (
+   `id` SERIAL PRIMARY KEY,
+   `name` VARCHAR(255) DEFAULT NULL,
+   `user_id` BIGINT UNSIGNED DEFAULT NULL,
+
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+DROP TABLE IF EXISTS `photo`;
+CREATE TABLE `photo` (
+  `id` SERIAL PRIMARY KEY,
+  `name` VARCHAR(50) NOT NULL,
+  `type` ENUM('jepg', 'gif', 'bmp') NOT NULL DEFAULT 'png',
+  `photo_id` BIGINT UNSIGNED NOT NULL,
+  `media_id` BIGINT UNSIGNED NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+  	FOREIGN KEY (photo_id) REFERENCES photo_directory(id),
+    FOREIGN KEY (media_id) REFERENCES media(id)
+);
+
+DROP TABLE IF EXISTS `VK-pay`;
+CREATE TABLE `VK-pay` (
+    `id` SERIAL PRIMARY KEY,
+    `user_id` BIGINT unsigned not null,
+    `cvc` TINYINT,
+    `card_number` VARCHAR(16),
+    `period of validity` DATE,
+    `your_full_name` VARCHAR(50),
+
+    FOREIGN KEY (user_id) REFERENCES users(id)
+
+DROP TABLE IF EXISTS `education`;	
+CREATE TABLE `education` (
+   `user_id` SERIAL PRIMARY KEY,	
+   `country` VARCHAR(255), 
+   `city` VARCHAR(255),
+   `university` VARCHAR(255),
+   `faculty` VARCHAR(255),
+   `release_date` DATE NOT NULL,
+	
+    FOREIGN KEY (user_id) REFERENCES users(id)		
+);	

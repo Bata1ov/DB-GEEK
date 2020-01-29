@@ -1,0 +1,33 @@
+Установлен MySQL с университета 
+файл расположен в корне диска с системой 
+.my.cnf
+[client]
+user=root
+password=Batalov
+
+
+
+Создание базы данных example
+---------------------------------
+CREATE DATABASE example;
+
+USE example
+
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255)
+);
+
+
+Создайте дамп базы данных example
+----------------------------------
+# создание дампа
+mysqldump example > dump.sql
+# создание базы sample из консоли
+mysql -e "CREATE DATABASE sample"
+# импорт дампа в новую базу
+mysql sample < dump.sql
+
+
+4 Задание дамп таблицы help_keyword
+mysqldump mysql help_keyword -w "true LIMIT 100" > dump.sql
